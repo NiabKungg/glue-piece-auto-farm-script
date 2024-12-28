@@ -195,7 +195,6 @@ function mainAutoFarm(mobName)
             wait()
             checkIfPlayerDead()
             checkAndEquipTool(_G.itemUse)
-            game:GetService("Workspace").Gravity = 0
 
             -- ตรวจสอบว่ามี Humanoid ใน NPC หรือไม่
             if mob:FindFirstChild("Humanoid") and mob:FindFirstChild("HumanoidRootPart") then
@@ -235,10 +234,6 @@ function mainAutoFarm(mobName)
                 wait(0.5)
                 break
             end
-            
-            if _G.AutoFarm_Level == false or _G.Stop == true then
-                game:GetService("Workspace").Gravity = _G.defGravity
-            end
         until _G.AutoFarm_Level == false or _G.Stop == true
     end
 end
@@ -272,8 +267,10 @@ autofarm:Toggle(
                 while wait() do
                     if _G.AutoFarm_Level then
                         print("Auto Farm...")
-                        
+                        game:GetService("Workspace").Gravity = 0
                         mainAutoFarm(_G.AutoFarmTarget)
+                    else
+                        game:GetService("Workspace").Gravity = _G.defGravity
                     end
                 end
             end)
